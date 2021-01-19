@@ -1,31 +1,19 @@
-<h1 align = "center">Multi-View Graph Convolutional Networks with Attention Mechanism</h1>
-
-<p align = "center">
-    <a href="https://github.com/sxu-yaokx" style="font-size: 23px">Kaixuan Yao</a> &emsp;
-    <a href="https://scholar.google.com/citations?user=iGc61hUAAAAJ&hl=da" style="font-size: 23px">Jiye Liang</a> &emsp;
-    <a href="https://scholar.google.com/citations?user=4mUaJpEAAAAJ&hl=zh-CN" style="font-size: 23px">Jianqing Liang</a>  &emsp;
-    <a href="https://mingli-ai.github.io/" style="font-size: 23px">Ming Li</a>  &emsp;
-    <a href="https://scholar.google.com/citations?user=KFUjv40AAAAJ&hl=zh-CN" style="font-size: 23px">Feilong Cao</a>
-</p>
+<h1 align = "center">GAN-GMC: Multi-Graph Representation Learning with GANs for Geometric Matrix Completion</h1>
 
 <h1 align = "center">Abstract</h1> 
 
-Recent advances in graph convolutional networks (GCNs), mainly focusing on how to exploit the information from different hops of neighbors in an efficient way, have brought substantial improvement on many graph data modelling tasks. Most of the existing GCN-based models however are built on the basis of a fixed adjacency matrix, i.e., a single view topology of the underlying graph. That inherently limits the expressive power of the developed models when the given adjacency matrix that is viewed as an approximation of the unknown graph topology does not fully reflect the `ideal' structure knowledge. In this paper, we propose a novel framework, termed Multiview Graph Convolutional Networks with Attention Mechanism (MAGCN), by incorporating multiple views of topology and attention based feature aggregation strategy into the computation of graph convolution. Furthermore, we present some theoretical analysis about the expressive power and flexibility of MAGCN, which provides a general explanation on why multi-view based methods can potentially outperform the ones relying on a single view. Our experimental study demonstrates the state-of-the-art accuracies of MAGCN on Cora, Citeseer, and Pubmed datasets. Robustness analysis is also given to show the advantage of MAGCN in handling some uncertainty issues in node classification tasks.
+With careful consideration of the pairwise graph relationships between users/items, Geometric Matrix Completion (GMC) has been widely explored for recommender systems. Existing methods for GMC with Graph Neural Networks (GNN) usually follow a generative manner, i.e. building learning modules to reconstruct a new rating matrix. This methodology however relies heavily on a considerable amount of observed ratings and favorable GNN models. In this paper, by virtue of the striking success of Generative Adversarial Nets (GAN), we propose an innovative multi-graph representation learning framework with GAN for GMC, which unifies a generator $G$ and a discriminator $D$. With the competition between $G$ and $D$, both of them can alternately and iteratively boost their performance. Further, to build a more powerful generator, we develop a deep recursive inference module for both user and item graph representation learning, which combines graph convolutional networks and bidirectional LSTMs. We evaluate our proposed model on several standard datasets, showing that it outperforms the state-of-the-art approaches. Robustness analysis is also given to show the advantage of our proposed framework in handling GMC tasks with few training samples.
 
 <h1 align = "center">Motivation</h1>
 
-Despite that GCN and its variants/extensions have shown their great success on node classification tasks, almost all of these models are developed based on a fixed adjacency matrix given in advance, in other words, a single view graph topology. Inherently, the expressive power of the resulted model may be limited due to the potential information discrepancy between the adjacency matrix and the (unknown) target one. As such, it is logical to consider two practical questions: 
+Recently, graph convolutional networks (GCN) have attracted much attention in light of their favorable performance on many graph data modeling tasks. Existing methods for GMC problems with GNN/GCN usually build learning modules to extract the latent feature representations of users and items and then reconstruct a new rating matrix based on the corresponding embeddings. However, this methodology relies heavily on an amount of observed ratings and existing favorable GNN models. Firstly, the observed rating matrix may be extremely sparse (training samples are very few) in real applications, which degrades the performance of completion. Meanwhile, existing favorable GNNs are kind of shallow model (no deeper than 3 or 4 layers) because of the over-fitting and over-smoothing problems~\cite{xu2018representation} caused by the increase of GCN layers, which inherently limits the expressive power of the GCNs.
 
-Q1: Is the given topology (adjacency matrix) trustable?
-
-Q2: How to carry out the neighborhood aggregation or message passing when multi-view topologies of the graph are provided?
-
-In this paper, we propose a novel framework, termed Multiview Graph Convolutional Networks with Attention Mechanism (MAGCN), by incorporating multiple views of topology and attention based feature aggregation strategy into the computation of graph convolution.
+To address the above issues, we propose a novel multi-graph representation learning framework with GANs to solve GMC problem termed GAN-GMC, which unifies a generator $G$ and a discriminator $D$. $G$ generating the missing entries conditioned on what is actually observed and a discriminator $D$ estimating the probability that a rating score came from the training rating matrix rather than $G$. Specifically, new rating scores generated by $G$ are viewed as ``fake'' samples to fool the discriminator $D$, while $D$ tries to detect whether the rating scores are from ground truth rating matrix or generated by $G$. With the competition between the two modules, both of them can alternately and iteratively boost their performance. Further, we develop a deep recursive inference module for both user and item graph representation learning in generator, which can avoid the over-fitting and over-smoothing problems caused by the increase of GCN layers.
 
 <h1 align = "center">Overview</h1>
 
 <div align="center">
-    <img src="images/MAGCN_structure.jpg" width="100%" height ="100%" alt="MAGCN.jpg" />
+    <img src="image/MAGCN_structure.jpg" width="100%" height ="100%" alt="MAGCN.jpg" />
 </div>
 <p align = 'center'>
 <small> Figure 1. The overall structure of our MAGCN. </small>
