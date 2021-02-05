@@ -28,7 +28,7 @@ To better understand the proposed model, we provide a summary of the algorithm f
 To further demonstrate the advantage of our proposed framework, we evaluate the proposed approach in comparison with baselines sRMGCNN and GC-MC by performing different setting of the density of observed ratings. Specifically, we compare the three models on Flixster dataset under low observed rating density, that can lead to potential perturbations and affect the completion performance. We adopt ten different observed rating densities in $\left[0.0003,0.0029\right]$ to train these models. The experimental results show that the RMSE scores of the baselines increase quickly with decreasing observed rating densities, while our GAN-GMC performs robustly even when the observed rating density is extremely low. Overall, the robustness of GAN-GMC gives credits to its superiority in dealing with real-world applications where the underlying rating matrix has very few entries.
 
 <div align="center">
-    <img src="images/llr.png" width="70%" height ="70%" alt="llr.png" />
+    <img src="images/llr.png" width="50%" height ="50%" alt="llr.png" />
 </div>
 <p align = 'center'>
 <small> Figure 2. RMSE for sRMGCNN, GC-MC, and GAN-GMC on Flixster with different observed rating densities. </small>
